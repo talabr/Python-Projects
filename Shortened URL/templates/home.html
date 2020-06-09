@@ -2,15 +2,15 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Flask Tutorial</title>
+    <title>shortest url</title>
   </head>
   <body>
-    <h1> My First Try Using Flask </h1>
-    <form action="/action_page.php">
-	  <label for="fname">Enter URL:</label>
-	  <input type="text" id="fname" name="fname">
-	  <input type="submit" value="Submit">
-	</form> 
-    <p> Flask is Fun </p>
+    <h1> Get the best shortest url HERE!!!! </h1>
+    <form action="{{ url_for('change') }}" method="post">
+	   <label for="url">Enter URL:</label>
+	   <input type="text" id="url" name="url" value="{{ origin_url }}">
+	   <input type="submit" value="Submit">
+	 </form>
+   <h3> {{ shorten_url }} </h3>
   </body>
 </html>

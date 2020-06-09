@@ -7,12 +7,12 @@ app = Flask(__name__)
 create_db()
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     return render_template("home.html", origin_url="", message="")
 
 
-@app.route('/change', methods=['POST'])
+@app.route('/', methods=['POST'])
 def change():
 	origin_url = request.form['url']
 	shorten_url = urljoin(request.url_root, url_for('convert', url=get_shorten_url(origin_url)))

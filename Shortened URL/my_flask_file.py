@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
-from url_shortened_utils import get_new_url, get_origin_url_form_shorten_url
+from url_shortened_utils import create_db, get_shorten_url, get_origin_url
+from urllib.parse import urljoin
+
 
 app = Flask(__name__)
+create_db()
+
 
 @app.route('/')
 def home():
@@ -11,13 +15,13 @@ def home():
 @app.route('/change', methods=['POST'])
 def change():
 	origin_url = request.form['url']
-	shorten_url = request.url_root + get_new_url(origin_url)
+	shorten_url = urljoin(request.url_root, url_for('convert', url=get_shorten_url(origin_url)))
 	return render_template("home.html", origin_url=origin_url, shorten_url=shorten_url)
 
 
-@app.route('/<url>')
+@app.route('/convert/<url>')
 def convert(url):
-	origin_url = get_origin_url_form_shorten_url(url)
+	origin_url = get_origin_url(url)
 	return redirect(origin_url)
 
 

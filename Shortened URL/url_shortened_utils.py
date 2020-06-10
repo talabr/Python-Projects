@@ -37,9 +37,11 @@ def get_origin_url(shorten_url):
 
 
 def create_shortened_url():
-    # todo - check if shorten url allready exist
     letters = string.ascii_lowercase
-    return ''.join(random.choice(letters) for i in range(NEW_URL_LENGTH))
+    shorten_url=''.join(random.choice(letters) for i in range(NEW_URL_LENGTH))
+    if shorten_url in import_data_to_dict().values():
+        return create_shortened_url()
+    return shorten_url
 
 
 def add_new_url_to_dict(user_url, new_shortened_url):

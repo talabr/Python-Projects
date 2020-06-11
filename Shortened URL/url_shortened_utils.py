@@ -18,6 +18,16 @@ def create_db():
     if not os.path.exists(ALL_DATA_PATH):
         return_data_to_file({})
 
+def costum_url(user_url,costum_url):
+    for shorten_url in import_data_to_dict().values():
+        if shorten_url==costum_url:
+            return 'url already exist'
+    checker_result = validate_web_url(user_url)
+    if checker_result in EXCEPTIONS_DICT.keys():
+        return EXCEPTIONS_DICT[checker_result]
+    add_new_url_to_dict(user_url, costum_url)
+    return costum_url
+
 
 def url_length():
     """

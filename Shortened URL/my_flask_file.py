@@ -8,7 +8,7 @@ create_db()
 
 @app.route('/')
 def home():
-    return render_template("home.html", origin_url="", message="")
+	return render_template("home.html", origin_url="", message="")
 
 
 @app.route('/', methods=['POST'])
@@ -33,21 +33,10 @@ def change():
             return render_template("home.html", origin_url=origin_url, message=full_shorten_url)
 
 
-# def check_input(origin_url, user_url=None, is_custome=False):
-# 	if is_custome:
-# 		url = custom_url(origin_url, user_url)
-# 	else:
-# 		url = get_shorten_url(origin_url)
-# 	if url.startswith('ERROR '):
-# 		return url
-# 	return urljoin(request.url_root, url_for('convert', url))
-
-
 @app.route('/convert/<url>')
 def convert(url):
-    origin_url = get_origin_url(url)
-    return redirect(origin_url)
-
+	origin_url = get_origin_url(url)
+	return redirect(origin_url)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+	app.run(debug=True)

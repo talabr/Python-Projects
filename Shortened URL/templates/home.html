@@ -216,43 +216,39 @@
 
         <section id="urlbox">
             <h1>enter your url</h1>
-            <form action="{{ url_for('change') }}" method="post">
+            <form action="{{ url_for('change') }}" method="POST">
 
 
 
-               <div  id="formurl">
+                <div  id="formurl">
                     <input type="text" id="url" name="url" placeholder="Enter the link here" >
-
 
                     <div id="formbutton">
                         <input type="submit" value="get my new url">
 
-                 </div>
-
+                    </div>
 
                 </div>
 
                 <br>
 
 
-                    <p class="boxtextcenter">
-             <input type="checkbox" id="check_costum" name="check_costum" value='on' >
+                <p class="boxtextcenter">
+                    <input type="checkbox" id="check_costum" name="check_costum" value="1" >
+                    <label for="check_costum"> want to enter your own costum url?</label>
 
-                   <label for="costum"> want to enter your own costum url?</label>
-            <input type="text" id="costum_url" name="costum_url" placeholder="your costum url"><br>
-</p>
+                    <input type="text" id="costum_url" name="costum_url" placeholder="your costum url"><br>
+                </p>
 
             <p class="boxtextcenter">
-
                 with shURLi you can get a shorten url for easier use
-
             </p>
 
+            </form>
+         </section>
 
-                </section>
-
-
-        <h1>{{message}}</h1>
+        <button onclick="clip_div('copyme')">Copy text</button>
+        <div id="copyme">{{message}}</div>
         <br>
 
 

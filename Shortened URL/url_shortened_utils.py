@@ -9,15 +9,6 @@ from urllib.error import URLError, HTTPError
 ALL_DATA_PATH = 'all_data.txt'
 EXCEPTIONS_DICT = {2: "Url is invalid. ", 3: "Something is wrong with the website. ", 4: "Url does not exist. "}
 
-
-def create_db():
-    """
-    This function checks whether you have the db file saved locally, and if not it creates it
-    :return: text file containing empty dictionary
-    """
-    if not os.path.exists(ALL_DATA_PATH):
-        return_data_to_file({})
-
 def costum_url(user_url,costum_url):
     for shorten_url in import_data_to_dict().values():
         if shorten_url==costum_url:
@@ -27,6 +18,15 @@ def costum_url(user_url,costum_url):
         return EXCEPTIONS_DICT[checker_result]
     add_new_url_to_dict(user_url, costum_url)
     return costum_url
+
+
+def create_db():
+    """
+    This function checks whether you have the db file saved locally, and if not it creates it
+    :return: text file containing empty dictionary
+    """
+    if not os.path.exists(ALL_DATA_PATH):
+        return_data_to_file({})
 
 
 def url_length():
@@ -151,3 +151,4 @@ def get_shorten_url(user_url):
             return EXCEPTIONS_DICT[checker_result]
         else:  # meaning the function returned True?
             return create_shortened_url(user_url)
+

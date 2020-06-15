@@ -7,17 +7,6 @@ from urllib.error import URLError, HTTPError
 
 
 ALL_DATA_PATH = 'all_data.txt'
-EXCEPTIONS_DICT = {2: "Url is invalid. ", 3: "Something is wrong with the website. ", 4: "Url does not exist. "}
-
-def costum_url(user_url,costum_url):
-    for shorten_url in import_data_to_dict().values():
-        if shorten_url==costum_url:
-            return 'url already exist'
-    checker_result = validate_web_url(user_url)
-    if checker_result in EXCEPTIONS_DICT.keys():
-        return EXCEPTIONS_DICT[checker_result]
-    add_new_url_to_dict(user_url, costum_url)
-    return costum_url
 
 
 def create_db():
@@ -27,6 +16,23 @@ def create_db():
     """
     if not os.path.exists(ALL_DATA_PATH):
         return_data_to_file({})
+
+
+def custom_url(user_url, user_custom_url):
+    """
+    This function receives an original url and custom url and return an Error if needed
+    :param user_url:
+    :param user_custom_url:
+    :return:
+    """
+    if short_url_in_db(user_custom_url):
+        if get_key_from_value(user_custom_url) == user_url:
+            return user_custom_url
+        return 'ERROR - custom url already exist'
+    elif not validate_web_url(user_url):
+        return 'ERROR - url is not valid. Check yourself'
+    add_new_url_to_dict(user_url, user_custom_url)
+    return user_custom_url
 
 
 def url_length():
@@ -71,6 +77,22 @@ def url_exist_in_db(user_url):
     return user_url in import_data_to_dict().keys()
 
 
+def short_url_in_db(user_custom_url):
+    """
+
+    :param user_custom_url:
+    :return:
+    """
+    return user_custom_url in import_data_to_dict().values()
+
+
+def get_key_from_value(custome_url):
+    my_dict = import_data_to_dict()
+    for key,value in my_dict.items():
+        if custome_url == value:
+            return key
+
+
 def validate_web_url(url):
     """
     This function validate the given url by trying to open the url and catching possible errors
@@ -79,16 +101,15 @@ def validate_web_url(url):
     """
     if not (url.startswith('http://') or url.startswith('https://')):
         url = 'http://%s' % url
-    else:
-        try:
-            urlopen(url)
-            return True
-        except ValueError:
-            return 2
-        except HTTPError:
-            return 3
-        except URLError:
-            return 4
+    try:
+        urlopen(url)
+        return True
+    except ValueError:
+        return False
+    except HTTPError:
+        return False
+    except URLError:
+        return False
 
 
 def get_shorten_url_from_dict(user_url):
@@ -145,10 +166,7 @@ def get_shorten_url(user_url):
     """
     if url_exist_in_db(user_url):
         return get_shorten_url_from_dict(user_url)
-    else:
-        checker_result = validate_web_url(user_url)
-        if checker_result in EXCEPTIONS_DICT.keys():
-            return EXCEPTIONS_DICT[checker_result]
-        else:  # meaning the function returned True?
-            return create_shortened_url(user_url)
+    elif not validate_web_url(user_url):
+        return 'ERROR - url is not valid. Check yourself'
+    return create_shortened_url(user_url)
 

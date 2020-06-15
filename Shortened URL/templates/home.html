@@ -199,65 +199,37 @@
     }
 
     </style>
-
 </head>
-
-
 <body>
     <header>
         <div id="logo">
        <a  class="logo">ShURLi </a>
-
-
         </div>
     </header>
     <main>
-
-
         <section id="urlbox">
             <h1>enter your url</h1>
             <form action="{{ url_for('change') }}" method="POST">
-
-
-
                 <div  id="formurl">
                     <input type="text" id="url" name="url" placeholder="Enter the link here" >
-
                     <div id="formbutton">
                         <input type="submit" value="get my new url">
-
                     </div>
 
                 </div>
-
                 <br>
-
-
                 <p class="boxtextcenter">
-                    <input type="checkbox" id="check_costum" name="check_costum" value="1" >
-                    <label for="check_costum"> want to enter your own costum url?</label>
-
-                    <input type="text" id="costum_url" name="costum_url" placeholder="your costum url"><br>
+                    <input type="checkbox" id="check_custom" name="check_custom" value="1" >
+                    <label for="check_custom"> want to enter your own custom url?</label>
+                    <input type="text" id="custom_url" name="custom_url" placeholder="your custom url"><br>
                 </p>
-
             <p class="boxtextcenter">
                 with shURLi you can get a shorten url for easier use
             </p>
-
             </form>
          </section>
-
-
-
+        <h1>{{message}}</h1>
+    </main>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-

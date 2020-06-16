@@ -1,4 +1,12 @@
-venv/
+
+.idea/
 __py_cache__/
+
 *.pyc
+
+venv/
+Lib/
+Scripts/
+pyvenv.cfg
+
 all_data.txt

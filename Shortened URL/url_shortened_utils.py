@@ -95,21 +95,13 @@ def get_key_from_value(custome_url):
 
 def validate_web_url(url):
     """
-    This function validate the given url by trying to open the url and catching possible errors
+    This function validate the given url by checking if it starts with http or www.
     :param url: user url
-    :return: error index
+    :return: true or false
     """
-    if not (url.startswith('http://') or url.startswith('https://')):
-        url = 'http://%s' % url
-    try:
-        urlopen(url)
-        return True
-    except ValueError:
+    if not (url.startswith('http://') or url.startswith('https://') or url.startswith('www.')):
         return False
-    except HTTPError:
-        return False
-    except URLError:
-        return False
+    return True
 
 
 def get_shorten_url_from_dict(user_url):

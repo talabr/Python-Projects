@@ -15,8 +15,9 @@ def home():
 def change():
     origin_url = request.form['url']
     print("received original url %s" % origin_url)
-    try:
-        request.form["check_custom"]  # checks whether the checkbox is empty or not
+    # try:
+    if request.form.get('check_custom'):
+        # request.form["check_custom"]  # checks whether the checkbox is empty or not
         user_url = request.form['custom_url']
         user_url_after_check = custom_url(origin_url, user_url)  # returns error string or random string
         if user_url_after_check.startswith('ERROR '):
@@ -24,7 +25,8 @@ def change():
         else:
             full_custom_url = urljoin(request.url_root, url_for('convert', url=user_url_after_check))
             return render_template("home.html", origin_url=origin_url, message=full_custom_url)
-    except:
+    # except:
+    else:
         shorten_url_after_check = get_shorten_url(origin_url)  # returns error string or random string
         if shorten_url_after_check.startswith('ERROR '):
             return render_template("home.html", origin_url=origin_url, message=shorten_url_after_check)

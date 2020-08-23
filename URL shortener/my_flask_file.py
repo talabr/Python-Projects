@@ -1,6 +1,6 @@
 from urllib.parse import urljoin
 from flask import Flask, render_template, request, redirect, url_for
-from url_shortened_utils import create_db, get_shorten_url, get_origin_url_from_shorten_url
+from utils import create_db, get_shorten_url, get_origin_url_from_shorten_url
 
 app = Flask(__name__)
 create_db()
